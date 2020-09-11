@@ -1,0 +1,677 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.3
+-- Dumped by pg_dump version 12.3
+
+-- Started on 2020-09-11 14:59:20
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 207 (class 1259 OID 16749)
+-- Name: artist; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.artist (
+    artist_id integer NOT NULL,
+    artist_name character varying(250) NOT NULL,
+    sex character varying(1) NOT NULL,
+    birthdate integer
+);
+
+
+ALTER TABLE public.artist OWNER TO postgres;
+
+--
+-- TOC entry 206 (class 1259 OID 16747)
+-- Name: artist_artist_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.artist_artist_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.artist_artist_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2874 (class 0 OID 0)
+-- Dependencies: 206
+-- Name: artist_artist_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.artist_artist_id_seq OWNED BY public.artist.artist_id;
+
+
+--
+-- TOC entry 211 (class 1259 OID 16785)
+-- Name: comics; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.comics (
+    comic_id integer NOT NULL,
+    comic_title character varying(250) NOT NULL,
+    pages integer,
+    color character varying(5),
+    first_printing character varying(5),
+    out_of_print character varying(5),
+    superhero_genre character varying(5),
+    read character varying(5),
+    publishing_date integer,
+    language_id integer,
+    author_id integer,
+    artist_id integer,
+    format_id integer,
+    publisher_id integer
+);
+
+
+ALTER TABLE public.comics OWNER TO postgres;
+
+--
+-- TOC entry 210 (class 1259 OID 16783)
+-- Name: comics_comic_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.comics_comic_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.comics_comic_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2875 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: comics_comic_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.comics_comic_id_seq OWNED BY public.comics.comic_id;
+
+
+--
+-- TOC entry 203 (class 1259 OID 16733)
+-- Name: format; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.format (
+    format_id integer NOT NULL,
+    format_name character varying(25) NOT NULL
+);
+
+
+ALTER TABLE public.format OWNER TO postgres;
+
+--
+-- TOC entry 202 (class 1259 OID 16731)
+-- Name: format_format_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.format_format_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.format_format_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2876 (class 0 OID 0)
+-- Dependencies: 202
+-- Name: format_format_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.format_format_id_seq OWNED BY public.format.format_id;
+
+
+--
+-- TOC entry 209 (class 1259 OID 16757)
+-- Name: language; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.language (
+    language_id integer NOT NULL,
+    language character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.language OWNER TO postgres;
+
+--
+-- TOC entry 208 (class 1259 OID 16755)
+-- Name: language_language_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.language_language_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.language_language_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2877 (class 0 OID 0)
+-- Dependencies: 208
+-- Name: language_language_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.language_language_id_seq OWNED BY public.language.language_id;
+
+
+--
+-- TOC entry 205 (class 1259 OID 16741)
+-- Name: publisher; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.publisher (
+    publisher_id integer NOT NULL,
+    publisher_name character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.publisher OWNER TO postgres;
+
+--
+-- TOC entry 204 (class 1259 OID 16739)
+-- Name: publisher_publisher_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.publisher_publisher_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.publisher_publisher_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2878 (class 0 OID 0)
+-- Dependencies: 204
+-- Name: publisher_publisher_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.publisher_publisher_id_seq OWNED BY public.publisher.publisher_id;
+
+
+--
+-- TOC entry 2713 (class 2604 OID 16752)
+-- Name: artist artist_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.artist ALTER COLUMN artist_id SET DEFAULT nextval('public.artist_artist_id_seq'::regclass);
+
+
+--
+-- TOC entry 2715 (class 2604 OID 16788)
+-- Name: comics comic_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comics ALTER COLUMN comic_id SET DEFAULT nextval('public.comics_comic_id_seq'::regclass);
+
+
+--
+-- TOC entry 2711 (class 2604 OID 16736)
+-- Name: format format_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.format ALTER COLUMN format_id SET DEFAULT nextval('public.format_format_id_seq'::regclass);
+
+
+--
+-- TOC entry 2714 (class 2604 OID 16760)
+-- Name: language language_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.language ALTER COLUMN language_id SET DEFAULT nextval('public.language_language_id_seq'::regclass);
+
+
+--
+-- TOC entry 2712 (class 2604 OID 16744)
+-- Name: publisher publisher_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.publisher ALTER COLUMN publisher_id SET DEFAULT nextval('public.publisher_publisher_id_seq'::regclass);
+
+
+--
+-- TOC entry 2864 (class 0 OID 16749)
+-- Dependencies: 207
+-- Data for Name: artist; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.artist (artist_id, artist_name, sex, birthdate) FROM stdin;
+1	Bryan Lee O'Malley	M	1979
+2	Emily Carroll	F	1983
+3	J.M. DeMatteis	M	1953
+4	Mike Zeck	M	1949
+5	Mike Mignola	M	1960
+6	Duncan Fegredo	M	1964
+7	Gerard Way	M	1977
+8	Gabriel Bá	M	1976
+9	Alejandro Jodorowsky	M	1929
+10	Jean Giraud Moebius	M	1938
+11	Philippe Druillet	M	1944
+12	Juan Díaz Canales	M	1972
+13	Juanjo Guarnido	M	1967
+14	Alan Moore	M	1953
+15	Gene Ha	M	\N
+16	Zander Cannon	M	1972
+17	J. H. Williams III	M	1965
+18	Junji Ito	M	1963
+19	Paco Roca	M	1969
+20	Richard McGuire	M	1957
+21	Tsutomu Nihei	M	1971
+22	Katsuhiro Otomo	M	1954
+23	Grant Morrison	M	1960
+24	Richard Case	M	1964
+25	Chris Claremont	M	1950
+26	Dave Cockrum	M	1943
+27	John Byrne	M	1950
+28	Brian K. Vaughan	M	1976
+29	Fiona Staples	F	\N
+30	Kevin O'Neill	M	1953
+31	Brandon Graham	M	1976
+32	Frank Miller	M	1957
+33	Sarah Andersen	F	\N
+34	Akira Toriyama	M	1955
+35	Jim Davis	M	1945
+36	Phil Jimenez	M	1970
+37	Howard Porter	M	\N
+38	Cory Walker	M	1980
+39	Ryan Ottley	M	\N
+40	Joe Hill	M	1972
+41	Gabriel Rodriguez	M	1976
+42	Jeph Loeb	M	1958
+43	Tim Sale	M	1956
+44	Roy Thomas	M	1940
+45	Garry Leach	M	1954
+46	Alan Davis	M	1956
+47	John Totleben	M	1958
+48	Mark Buckingham	M	1966
+49	J. Michael Straczynski	M	1954
+50	Shane Davis	M	\N
+51	Santiago García	M	1968
+52	David Rubín	M	1977
+53	Charles Burns	M	1955
+54	Geof Darrow	M	1955
+55	Dave Gibbons	M	1949
+56	David Lloyd	M	1950
+57	Neil Gaiman	M	1960
+58	Scott McCloud	M	1960
+59	Robin Furth	F	1965
+60	Bill Willingham	M	1956
+61	Mike Carey	M	1959
+62	Peter Gross	M	1958
+63	Jean-Claude Forest	M	1930
+64	Jeff Lemire	M	1976
+65	Travel Foreman	M	1982
+66	Dave McKean	M	1963
+67	David Mazzucchelli	M	1960
+68	Warren Ellis	M	1968
+69	Tula Lotay	F	1975
+70	Mike Allred	M	1969
+71	David Hine	M	1949
+72	Philip Tan	M	1978
+73	Henry Gilroy	M	1976
+74	Jan Duursema	F	1954
+75	Mile Lane	M	\N
+76	Doug Wheatley	M	1950
+77	Jim Lee	M	1964
+78	Mark Millar	M	1969
+79	Steve McNiven	M	1967
+80	Peter David	M	1956
+81	Todd McFarlane	M	1961
+82	Angel Medina	M	1964
+83	Zeb Wells	M	1977
+84	Greg Capullo	M	1962
+85	Geoff Johns	M	1972
+86	Ivan Reis	M	1976
+87	Marjane Satrapi	F	1969
+88	Art Spiegelman	M	1948
+89	Michael DeForge	M	1987
+90	Noelle Stevenson	F	1991
+91	Paul Karasik	M	1956
+92	László Márk	M	\N
+93	Kouta Hirano	M	1973
+94	Peter Milligan	M	1961
+95	Brendan McCarthy	M	\N
+98	Craig Thompson	M	1975
+99	Kentaro Miura	M	1966
+100	Brian Michael Bendis	M	1967
+101	Olivier Coipel	M	1969
+102	Terry Dodson	M	\N
+103	Garth Ennis	M	1970
+104	John McCrea	M	1966
+105	David Finch	M	1971
+106	Jim Starlin	M	1949
+96	Rich Buckler	M	1949
+97	Gabriele Dell'Otto	M	1973
+107	Fabien Vehlmann	M	1972
+108	Kerascoët		\N
+109	Frank Quitely	M	1968
+110	Jens Harder	M	1970
+111	Fazekas Attila	M	1948
+112	Hubert Boulard	M	1971
+113	Chris Weston	M	1969
+114	Chris Bachalo	M	1965
+115	Mark Waid	M	1962
+116	Alex Ross	M	1970
+117	Rick Remender	M	1973
+118	Sean Murphy	M	1980
+119	Esad Ribic	M	1972
+120	Robert Rodi	M	1956
+121	Stan Lee	M	1922
+122	Ian Gibson	M	1946
+123	Glyn Dillon	M	1971
+124	Eddie Campbell	M	1955
+125	Lakatos István	M	1980
+126	Fábio Moon	M	1976
+\.
+
+
+--
+-- TOC entry 2868 (class 0 OID 16785)
+-- Dependencies: 211
+-- Data for Name: comics; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.comics (comic_id, comic_title, pages, color, first_printing, out_of_print, superhero_genre, read, publishing_date, language_id, author_id, artist_id, format_id, publisher_id) FROM stdin;
+1	Repeta	330	Yes	Yes	No	No	Yes	2019	1	1	1	2	1
+2	Through the Woods	208	Yes	No	No	No	Yes	2014	2	2	2	2	2
+3	Kraven utolsó vadászata	144	Yes	\N	Yes	Yes	No	2016	1	3	4	2	3
+4	Hellboy Omnibus 1.	368	Yes	\N	Yes	No	Yes	2018	1	5	5	2	4
+5	Hellboy Omnibus 2.	424	Yes	\N	Yes	No	Yes	2018	1	5	5	2	4
+6	Hellboy Omnibus 3.	360	Yes	\N	No	No	Yes	2019	1	5	6	2	4
+7	Hellboy Omnibus 4.	456	Yes	\N	No	No	Yes	2019	1	5	5	2	4
+8	Hellboy Omnibus I.	360	Yes	\N	No	No	Yes	2020	1	5	5	2	4
+9	Az Esernyő Akadémia 1.	184	Yes	\N	No	Yes	Yes	2019	1	7	8	2	4
+10	Az Esernyő Akadémia 2.	184	Yes	\N	No	Yes	Yes	2019	1	7	8	2	4
+11	What Lies Beneath	56	Yes	\N	Yes	No	Yes	2013	2	9	10	2	5
+12	The 6 Voyages Of Lone Sloane	72	Yes	\N	No	No	Yes	2015	2	11	11	2	6
+13	Lone Sloane : Delirius	80	Yes	\N	Yes	No	No	2015	2	11	11	2	6
+14	L'homme est-il bon ?	56	Yes	No	\N	No	Yes	2014	4	10	10	2	7
+15	Les Réparateurs	56	Yes	Yes	\N	No	Yes	2001	4	10	10	2	8
+16	Incal 1. - A Sötét Incal	48	Yes	\N	No	No	No	2017	1	9	10	2	9
+17	Incal 2. - A Fényes Incal	48	Yes	\N	No	No	No	2018	1	9	10	2	9
+18	Incal 3. - Ami odalent van	56	Yes	\N	Yes	No	No	2018	1	9	10	2	9
+19	Incal 4. - Ami odafent van	60	Yes	\N	No	No	No	2018	1	9	10	2	9
+20	Incal 5. - Az álmodó galaxis	56	Yes	\N	No	No	No	2019	1	9	10	2	9
+21	Incal 6. - A Difool bolygó	56	Yes	\N	No	No	No	2019	1	9	10	2	9
+22	Blacksad 1. - Árnyak között	48	Yes	No	Yes	No	No	2016	1	12	13	2	9
+23	Blacksad 2. - Hófehér nemzet	60	Yes	\N	No	No	No	2017	1	12	13	2	9
+24	Blacksad 3. - Vérvörös lélek	56	Yes	\N	No	No	No	2017	1	12	13	2	9
+25	Blacksad 4. - Néma pokol	56	Yes	\N	No	No	No	2018	1	12	13	2	9
+26	Blacksad 5. - Amarillo	56	Yes	\N	No	No	No	2018	1	12	13	2	9
+27	Absolute Top 10	576	Yes	\N	Yes	Yes	Yes	2013	2	14	15	2	10
+28	Absolute Promethea Book 2	328	Yes	\N	Yes	Yes	No	2010	2	14	17	2	10
+29	Absolute Promethea Book 3	328	Yes	\N	Yes	Yes	No	2011	2	14	17	2	10
+30	Uzumaki	648	No	No	No	No	Yes	2013	2	18	18	2	11
+31	Wrinkles	96	Yes	Yes	No	No	Yes	2016	2	19	19	2	12
+32	Here	304	Yes	Yes	No	No	Yes	2015	2	20	20	2	13
+\.
+
+
+--
+-- TOC entry 2860 (class 0 OID 16733)
+-- Dependencies: 203
+-- Data for Name: format; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.format (format_id, format_name) FROM stdin;
+1	Softcover
+2	Hardcover
+\.
+
+
+--
+-- TOC entry 2866 (class 0 OID 16757)
+-- Dependencies: 209
+-- Data for Name: language; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.language (language_id, language) FROM stdin;
+1	Hungarian
+2	English
+3	German
+4	French
+\.
+
+
+--
+-- TOC entry 2862 (class 0 OID 16741)
+-- Dependencies: 205
+-- Data for Name: publisher; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.publisher (publisher_id, publisher_name) FROM stdin;
+1	Fumax
+2	Margaret K. McElderry Books
+3	Kingpin
+4	Vad Virágok Könyvműhely
+5	Humanoids
+6	Titan Publishing
+7	Les Humanoïdes Associés
+8	Casterman
+9	Pesti Könyv Kiadó
+10	DC Comics
+11	Viz Media
+12	Fantagraphics Books
+13	Pantheon Books
+14	Vertical Comics
+15	Kodansha Comics
+16	Képkocka Kiadó
+17	Image
+18	Carlsen Verlag
+19	Kátrányés Toll
+20	Semic Interprint
+21	Dark Horse Comics
+22	Marvel
+23	Penguin Books
+24	Univerzál-Kaméleon
+25	Cartaphilus Könyvkiadó
+26	Nyitott Könyvműhely
+27	IDW Publishing
+28	Nero Blanco Comix
+29	Avatar Press
+30	Képes Kiadó
+31	Panini
+32	Míves Céh
+33	Libri Kiadó
+34	Koyama Press
+35	Ciceró
+36	SZIF Képregények
+37	Mangafan
+38	NBM Publishing
+39	Knockabout Comics
+40	Magán
+41	Drawn and Quarterly
+42	Self Made Hero
+43	Delta Vision
+44	Eaglemoss
+45	Hachette
+\.
+
+
+--
+-- TOC entry 2879 (class 0 OID 0)
+-- Dependencies: 206
+-- Name: artist_artist_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.artist_artist_id_seq', 128, true);
+
+
+--
+-- TOC entry 2880 (class 0 OID 0)
+-- Dependencies: 210
+-- Name: comics_comic_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.comics_comic_id_seq', 32, true);
+
+
+--
+-- TOC entry 2881 (class 0 OID 0)
+-- Dependencies: 202
+-- Name: format_format_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.format_format_id_seq', 2, true);
+
+
+--
+-- TOC entry 2882 (class 0 OID 0)
+-- Dependencies: 208
+-- Name: language_language_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.language_language_id_seq', 4, true);
+
+
+--
+-- TOC entry 2883 (class 0 OID 0)
+-- Dependencies: 204
+-- Name: publisher_publisher_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.publisher_publisher_id_seq', 45, true);
+
+
+--
+-- TOC entry 2721 (class 2606 OID 16754)
+-- Name: artist artist_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.artist
+    ADD CONSTRAINT artist_pkey PRIMARY KEY (artist_id);
+
+
+--
+-- TOC entry 2725 (class 2606 OID 16792)
+-- Name: comics comics_comic_title_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comics
+    ADD CONSTRAINT comics_comic_title_key UNIQUE (comic_title);
+
+
+--
+-- TOC entry 2727 (class 2606 OID 16790)
+-- Name: comics comics_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comics
+    ADD CONSTRAINT comics_pkey PRIMARY KEY (comic_id);
+
+
+--
+-- TOC entry 2717 (class 2606 OID 16738)
+-- Name: format format_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.format
+    ADD CONSTRAINT format_pkey PRIMARY KEY (format_id);
+
+
+--
+-- TOC entry 2723 (class 2606 OID 16762)
+-- Name: language language_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.language
+    ADD CONSTRAINT language_pkey PRIMARY KEY (language_id);
+
+
+--
+-- TOC entry 2719 (class 2606 OID 16746)
+-- Name: publisher publisher_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.publisher
+    ADD CONSTRAINT publisher_pkey PRIMARY KEY (publisher_id);
+
+
+--
+-- TOC entry 2730 (class 2606 OID 16803)
+-- Name: comics comics_artist_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comics
+    ADD CONSTRAINT comics_artist_id_fkey FOREIGN KEY (artist_id) REFERENCES public.artist(artist_id) ON DELETE SET NULL;
+
+
+--
+-- TOC entry 2729 (class 2606 OID 16798)
+-- Name: comics comics_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comics
+    ADD CONSTRAINT comics_author_id_fkey FOREIGN KEY (author_id) REFERENCES public.artist(artist_id) ON DELETE SET NULL;
+
+
+--
+-- TOC entry 2731 (class 2606 OID 16808)
+-- Name: comics comics_format_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comics
+    ADD CONSTRAINT comics_format_id_fkey FOREIGN KEY (format_id) REFERENCES public.format(format_id) ON DELETE SET NULL;
+
+
+--
+-- TOC entry 2728 (class 2606 OID 16793)
+-- Name: comics comics_language_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comics
+    ADD CONSTRAINT comics_language_id_fkey FOREIGN KEY (language_id) REFERENCES public.language(language_id) ON DELETE SET NULL;
+
+
+--
+-- TOC entry 2732 (class 2606 OID 16813)
+-- Name: comics comics_publisher_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comics
+    ADD CONSTRAINT comics_publisher_id_fkey FOREIGN KEY (publisher_id) REFERENCES public.publisher(publisher_id) ON DELETE SET NULL;
+
+
+-- Completed on 2020-09-11 14:59:20
+
+--
+-- PostgreSQL database dump complete
+--
+
